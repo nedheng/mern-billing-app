@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "process.env.REACT_APP_API_URL";
 
 const Billing = () => {
   const [fruits, setFruits] = useState({});
