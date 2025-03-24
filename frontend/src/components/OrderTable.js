@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_URL = "process.env.REACT_APP_API_URL";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const OrderCards = () => {
     const [orders, setOrders] = useState([]);
@@ -37,7 +37,7 @@ const OrderCards = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get(`${API_URL}/orders`);
+            const response = await axios.get(`${API_URL}/api/orders`);
             setOrders(response.data);
             setLoading(false);
         } catch (err) {
@@ -50,8 +50,8 @@ const OrderCards = () => {
     const fetchShopsAndFruits = async () => {
         try {
             const [shopsRes, fruitsRes] = await Promise.all([
-                axios.get(`${API_URL}/shops`),
-                axios.get(`${API_URL}/fruits`),
+                axios.get(`${API_URL}/api/shops`),
+                axios.get(`${API_URL}/api/fruits`),
             ]);
 
             const shopsMap = {};

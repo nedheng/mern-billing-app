@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "process.env.REACT_APP_API_URL";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const AddOrderForm = ({ refreshOrders }) => {
   const [shops, setShops] = useState([]);
@@ -16,7 +16,7 @@ const AddOrderForm = ({ refreshOrders }) => {
 
   const fetchShops = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/shops`);
+      const { data } = await axios.get(`${API_URL}/api/shops`);
       setShops(data);
     } catch (error) {
       console.error("Error fetching shops:", error);
@@ -25,7 +25,7 @@ const AddOrderForm = ({ refreshOrders }) => {
 
   const fetchFruits = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/fruits`);
+      const { data } = await axios.get(`${API_URL}/api/fruits`);
       setFruits(data);
     } catch (error) {
       console.error("Error fetching fruits:", error);
@@ -55,7 +55,7 @@ const AddOrderForm = ({ refreshOrders }) => {
         }))
     };
       console.log("Sending Order Data:", orderData);
-      await axios.post(`${API_URL}/orders`, orderData);
+      await axios.post(`${API_URL}/api/orders`, orderData);
       alert("Order added successfully!");
       setSelectedShop("");
       setSelectedItems([]);

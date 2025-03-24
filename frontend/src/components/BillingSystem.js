@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-const API_URL = "process.env.REACT_APP_API_URL";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Billing = () => {
   const [fruits, setFruits] = useState({});
@@ -24,7 +24,7 @@ const Billing = () => {
 
   const fetchFruits = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/fruits`);
+      const { data } = await axios.get(`${API_URL}/api/fruits`);
       const fruitsMap = {};
       data.forEach((fruit) => {
         fruitsMap[fruit._id] = { name: fruit.name, price: fruit.price };
@@ -37,7 +37,7 @@ const Billing = () => {
 
   const fetchShops = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/shops`);
+      const { data } = await axios.get(`${API_URL}/api/shops`);
       const shopsMap = {};
       data.forEach((shop) => {
         shopsMap[shop._id] = { name: shop.name };
@@ -55,7 +55,7 @@ const Billing = () => {
     try {
       const istDate = formatDateForFilter(selectedDate)
       console.log(istDate)
-      const { data } = await axios.get(`${API_URL}/bills/${istDate}`);
+      const { data } = await axios.get(`${API_URL}/api/bills/${istDate}`);
       setOrders(data);
     } catch (error) {
       setError("Failed to fetch orders.");
@@ -65,7 +65,7 @@ const Billing = () => {
 
   const updateFruitPrice = async (id, price) => {
     try {
-      await axios.put(`${API_URL}/fruits/${id}`, { price });
+      await axios.put(`${API_URL}/api/fruits/${id}`, { price });
       setFruits((prev) => ({
         ...prev,
         [id]: { ...prev[id], price },

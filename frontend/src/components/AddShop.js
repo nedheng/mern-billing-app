@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API_URL = "process.env.REACT_APP_API_URL";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const AddShop = () => {
     const [shopName, setShopName] = useState("");
@@ -14,7 +14,7 @@ const AddShop = () => {
         }
 
         try {
-            const { data } = await axios.post(`${API_URL}/shops`, { name: shopName });
+            const { data } = await axios.post(`${API_URL}/api/shops`, { name: shopName });
             alert(`Shop "${data.name}" added successfully`);
             setShopName("");
         } catch (error) {

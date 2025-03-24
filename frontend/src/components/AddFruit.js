@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 
-const API_URL = "process.env.REACT_APP_API_URL";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const AddFruit = ()=>{
 
@@ -14,7 +14,7 @@ const AddFruit = ()=>{
             alert("cant be empty")
         }
         try{
-            const {data} = await axios.post(`${API_URL}/fruits`, {name: fruitName})
+            const {data} = await axios.post(`${API_URL}/api/fruits`, {name: fruitName})
             console.log(data)
             alert(`Fruit "${data.name}" added successfully`);
             setFruitName("");
