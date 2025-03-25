@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
   console.log(req.body)
     try {
       const name  = req.body.name;
-      const fruit = new Fruit({ name, price: 0 }); // Always default to 0
+      const fruit = new Fruit({ name, priceKg: 0, pricePiece: 0 }); // Always default to 0
       await fruit.save();
       res.json(fruit);
     } catch (error) {
@@ -21,10 +21,10 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
 try {
-      const { price } = req.body;
+      const { priceKg, pricePiece } = req.body;
       const updatedFruit = await Fruit.findByIdAndUpdate(
         req.params.id,
-        { price },
+        { priceKg, pricePiece },
         { new: true } // Return updated document
       );
       res.json({ success: true, updatedFruit });
