@@ -27,7 +27,11 @@ const Billing = () => {
       const { data } = await axios.get(`${API_URL}/api/fruits`);
       const fruitsMap = {};
       data.forEach((fruit) => {
-        fruitsMap[fruit._id] = { name: fruit.name, price: fruit.price };
+        fruitsMap[fruit._id] = { 
+          name: fruit.name, 
+          priceKg: fruit.priceKg, 
+          pricePiece: fruit.pricePiece 
+        };
       });
       setFruits(fruitsMap);
     } catch (error) {
@@ -63,12 +67,12 @@ const Billing = () => {
     setLoading(false);
   };
 
-  const updateFruitPrice = async (id, price) => {
+  const updateFruitPrice = async (id, priceKg, pricePiece) => {
     try {
-      await axios.put(`${API_URL}/api/fruits/${id}`, { price });
+      await axios.put(`${API_URL}/api/fruits/${id}`, { priceKg, pricePiece });
       setFruits((prev) => ({
         ...prev,
-        [id]: { ...prev[id], price },
+        [id]: { ...prev[id], priceKg, priceKg },
       }));
     } catch (error) {
       console.error("Error updating price:", error.response?.data || error.message);
@@ -155,11 +159,32 @@ const Billing = () => {
     pdf.save(`Billing_Report_${selectedDate}.pdf`);
   };
   
-  
-  
-  
-  
-  
+  //price logic
+  const [localPrices, setLocalPrices] = useState({});
+
+  useEffect(() => {
+    setLocalPrices(
+      Object.fromEntries(
+        Object.entries(fruits).map(([id, fruit]) => [id, { priceKg: fruit.priceKg, pricePiece: fruit.pricePiece }])
+      )
+    );
+  }, [fruits]);
+
+  const handleChange = (id, field, value) => {
+    setLocalPrices((prev) => ({
+      ...prev,
+      [id]: { ...prev[id], [field]: value },
+    }));
+  };
+
+  const handleSave = () => {
+    Object.entries(localPrices).forEach(([id, prices]) => {
+      updateFruitPrice(id, prices.priceKg, prices.pricePiece);
+    });
+    alert("Prices Saved")
+    setModalOpen(false);
+  };
+
   
 
   if (loading) return <p>Loading orders...</p>;
@@ -179,25 +204,35 @@ const Billing = () => {
       />
       <button onClick={fetchOrders} style={{ marginLeft: "10px" }}>Fetch Bills</button>
 
-      {/* Edit Prices Modal */}
-      <button onClick={() => setModalOpen(true)} style={{ marginLeft: "10px" }}>Edit Prices</button>
+            {/* Edit Prices Modal */}
+            <button onClick={() => setModalOpen(true)} style={{ marginLeft: "10px" }}>Edit Prices</button>
       <Modal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
         <h2>Edit Prices</h2>
         {Object.keys(fruits).length > 0 ? (
-          Object.entries(fruits).map(([id, fruit]) => (
-            <div key={id}>
-              <label>{fruit.name}: </label>
-              <input
-                type="number"
-                value={fruit.price}
-                onChange={(e) => updateFruitPrice(id, Number(e.target.value))}
-              />
-            </div>
-          ))
+          <>
+            {Object.entries(fruits).map(([id, fruit]) => (
+              <div key={id}>
+                <label>{fruit.name}: </label>
+                <input
+                  type="number"
+                  value={localPrices[id]?.priceKg || ""}
+                  onChange={(e) => handleChange(id, "priceKg", Number(e.target.value))}
+                  placeholder="Price per Kg"
+                />
+                <input
+                  type="number"
+                  value={localPrices[id]?.pricePiece || ""}
+                  onChange={(e) => handleChange(id, "pricePiece", Number(e.target.value))}
+                  placeholder="Price per Pc"
+                />
+              </div>
+            ))}
+            <button onClick={handleSave}>Save</button>
+          </>
         ) : (
           <p>Loading fruits...</p>
         )}
-        <button onClick={() => setModalOpen(false)}>Save</button>
+        <button onClick={() => setModalOpen(false)}>Close</button>
       </Modal>
 
       {/* Billing Cards */}

@@ -20,18 +20,24 @@ router.get("/:date", async (req,res)=>{
         const orders = await Order.find({
           orderDate: { $gte: `ISODate${startOfDay}`, $lt: `ISODate${endOfDay}` }
         }).lean();
+        //console.log(orders)
 
         const updatedOrders = await Promise.all(orders.map(async order => {
             const updatedItems = await Promise.all(order.items.map(async item => {
+                //console.log("fruit")
                 let fruitId = (item.fruit.toString())
                 const fruit = await Fruit.findOne({_id:fruitId})
-                const price = fruit.price; // Function to get fruit price
+                
+                const priceKg = fruit.priceKg;
+                const pricePiece = fruit.pricePiece // Function to get fruit price
                 let total = 0;
-                console.log(price)
+                //console.log("pkg",priceKg)
+                //console.log("Qkg",item.quantityKg )
+
                 if (item.quantityKg !== 0) {
-                    total = item.quantityKg * price;
+                    total = item.quantityKg * priceKg;
                 } else if (item.quantityPiece !== 0) {
-                    total = item.quantityPiece * price;
+                    total = item.quantityPiece * pricePiece;
                 }
                 //console.log("total", total)
         
@@ -41,7 +47,7 @@ router.get("/:date", async (req,res)=>{
         
             return { ...order, items: updatedItems }; // Return updated order
         }));
-        console.log(orders)
+        //console.log(orders)
         //getting fruits
         // const fruits  = await Fruit.find();
         
