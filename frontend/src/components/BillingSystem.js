@@ -58,8 +58,9 @@ const Billing = () => {
     setError(null);
     try {
       const istDate = formatDateForFilter(selectedDate)
-      console.log(istDate)
+      console.log(`${API_URL}/api/bills/${istDate}`)
       const { data } = await axios.get(`${API_URL}/api/bills/${istDate}`);
+      console.log(data)
       setOrders(data);
     } catch (error) {
       setError("Failed to fetch orders.");
@@ -92,7 +93,7 @@ const Billing = () => {
 
   const formatDateForFilter = (utcDateString) => {
     const date = new Date(utcDateString);
-    date.setHours(date.getHours() - 5, date.getMinutes() - 30); // Manually shift to IST
+    date.setHours(date.getHours() + 5, date.getMinutes() + 30); // Manually shift to IST
     return date.toISOString().split("T")[0]; // Return YYYY-MM-DD format
 };
 
@@ -256,7 +257,7 @@ const Billing = () => {
                 <h3 style={{ textAlign: "center" }}>MALABAR FRUITS</h3>
                 <h6 style={{ textAlign: "right" }}>6374633152</h6>
                 <h4>Shop: {shopName}</h4>
-                <p><strong>Order Date:</strong> {convertToIST(selectedDate)}</p>
+                <p><strong>Order Date:</strong> {convertToIST(order.orderDate)}</p>
                 <h5>Items:</h5>
                 <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
                 <thead>
