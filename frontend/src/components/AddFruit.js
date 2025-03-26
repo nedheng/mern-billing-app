@@ -32,6 +32,7 @@ const AddFruit = ()=>{
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
+                    className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={fruitName}
                     onChange={(e) => setFruitName(e.target.value)}
                     placeholder="Enter fruit name"

@@ -9,11 +9,11 @@ function ShopList() {
     }, []);
 
     return (
-        <div>
-            <h2>Shops</h2>
-            <ul>
+        <div className="bg-white shadow-md rounded-lg p-6">
+            <h2 className="text-3xl font-bold mb-4">Shops</h2>
+            <ul className="space-y-2">
                 {shops.map(shop => (
-                    <li key={shop._id}>{shop.name}</li>
+                    <li key={shop._id} className="bg-gray-100 p-3 rounded-md shadow-sm">{shop.name}</li>
                 ))}
             </ul>
         </div>

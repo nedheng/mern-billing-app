@@ -111,7 +111,7 @@ const OrderCards = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            <h2>Orders List</h2>
+            <h2 className="text-3xl font-bold underline">Orders List</h2>
 
             {/* Date Selector */}
             <label><strong>Filter by Date:</strong></label>
