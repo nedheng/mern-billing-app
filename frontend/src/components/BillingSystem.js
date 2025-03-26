@@ -255,7 +255,7 @@ const Billing = () => {
                 }}
               >
                 <h3 style={{ textAlign: "center" }}>MALABAR FRUITS</h3>
-                <h6 style={{ textAlign: "right" }}>6374633152</h6>
+                <h6 style={{ textAlign: "right" }}>9941333140</h6>
                 <h4>Shop: {shopName}</h4>
                 <p><strong>Order Date:</strong> {convertToIST(order.orderDate)}</p>
                 <h5>Items:</h5>
