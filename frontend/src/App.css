@@ -8,40 +8,10 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* Sidebar */
-/* .sidebar {
-  background: #2C3E50; 
-  padding: 10px;
-  width: 200px;
-  height: 100vh;
-}
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  padding: 10px;
-  transition: background-color 0.3s, transform 0.2s;
-  border-radius: 5px;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: #ffffff;
-  display: block;
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-weight: 500;
-}
-
-.sidebar ul li:hover {
-  background: #475a78;
-  transform: translateX(5px);
-} */
 
 /* Navbar */
 .navbar {

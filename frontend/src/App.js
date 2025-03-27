@@ -8,6 +8,7 @@ import AddShop from "./components/AddShop";
 import FruitList from "./components/FruitList";
 import AddFruit from "./components/AddFruit";
 import BillingSystem from "./components/BillingSystem";
+import Home from "./components/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,9 +25,10 @@ function App() {
           <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
           {/* Main content area */}
-          <div className="flex-1 min-h-screen bg-gray-100">
+          <div className=" min-h-screen bg-gray-100 ">
             {/* Navbar */}
-            <nav className="bg-gray-800 p-4 shadow-md flex items-center justify-start min-w-screen">
+            <div className="w-screen">
+            <nav className="w-full bg-gray-800 p-4 px-10 shadow-md flex items-center justify-start ">
               {/* Sidebar Toggle Button Inside Navbar */}
               <button
                 className="border bg-gray-800 text-white p-2 rounded shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
@@ -53,11 +55,12 @@ function App() {
                 ))}
               </ul>
             </nav>
+            </div>
 
             {/* Main Content */}
             <div className="container mx-auto p-6">
               <Routes>
-                <Route path="/" element={<h2 className="text-center text-xl font-bold mt-6">Welcome</h2>} />
+                <Route path="/" element={<Home/>} />
                 <Route path="/orders" element={<OrderTable />} />
                 <Route path="/add-order" element={<AddOrderForm />} />
                 <Route path="/shops" element={<ShopList />} />

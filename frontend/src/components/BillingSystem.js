@@ -170,8 +170,8 @@ const Billing = () => {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen ">
-      <h2 className="text-2xl font-bold mb-10 ">Billing System</h2>
+    <div className="p-6 bg-gray-100 min-h-screen bg-white shadow-md rounded-lg ">
+      <h2 className="text-2xl font-bold mb-8">Billing System</h2>
       
       <div className="mb-4 flex items-center space-x-4">
         <label className="font-semibold">Select Date:</label>

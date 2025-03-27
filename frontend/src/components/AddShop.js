@@ -27,7 +27,7 @@ const AddShop = () => {
 
     return (
         <div className="flex items-center justify-center bg-gray-100 py-20">
-            <div className="bg-white p-6 rounded-lg shadow-md w-96">
+            <div className="bg-white p-6 rounded-lg shadow-md w-80">
                 <h2 className="text-2xl font-semibold text-center mb-4">Add a New Shop</h2>
                 <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                     <input

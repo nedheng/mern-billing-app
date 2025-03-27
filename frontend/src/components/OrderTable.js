@@ -108,7 +108,8 @@ const OrderCards = () => {
     const dailyFruitSummary = getDailyFruitSummary();
 
     return (
-        <div style={{ padding: "20px" }}>
+        
+        <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-3xl font-bold ">Orders List</h2>
 
             {/* Date Selector */}
