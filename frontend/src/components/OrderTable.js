@@ -101,8 +101,6 @@ const OrderCards = () => {
         return dailySummary;
     };
     
-    
-    
 
     if (loading) return <p>Loading orders...</p>;
     if (error) return <p style={{ color: "red" }}>{error}</p>;
@@ -111,7 +109,7 @@ const OrderCards = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            <h2 className="text-3xl font-bold underline">Orders List</h2>
+            <h2 className="text-3xl font-bold ">Orders List</h2>
 
             {/* Date Selector */}
             <label><strong>Filter by Date:</strong></label>
