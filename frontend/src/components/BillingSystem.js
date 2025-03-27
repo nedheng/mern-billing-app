@@ -97,30 +97,8 @@ const Billing = () => {
     return date.toISOString().split("T")[0]; // Return YYYY-MM-DD format
 };
 
-  // const convertToFJT = (utcDateString) => {
-  //   const date = new Date(utcDateString);
-  //   date.setHours(date.getHours() + 12);
-  //   return new Intl.DateTimeFormat("en-GB", {
-  //     year: "numeric",
-  //     month: "2-digit",
-  //     day: "2-digit",
-  //     hour12: true,
-  //     timeZone: "Pacific/Fiji",
-  //   }).format(date);
-  // };
 
-  // Function to generate PDF
-  // const generatePDF = () => {
-  //   const input = pdfRef.current; // Reference to the billing cards section
-  //   html2canvas(input, { scale: 2 }).then((canvas) => {
-  //     const imgData = canvas.toDataURL("image/png");
-  //     const pdf = new jsPDF("p", "mm", "a4");
-  //     const imgWidth = 190;
-  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  //     pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
-  //     pdf.save(`Billing_Report_${selectedDate}.pdf`);
-  //   });
-  // };
+  
   const generatePDF = async () => {
     const pdf = new jsPDF("l", "mm", "a4"); // Landscape mode for width
     const bills = document.querySelectorAll(".bill-card"); // Select all bill elements
@@ -192,49 +170,91 @@ const Billing = () => {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Billing System</h2>
+    <div className="p-6 bg-gray-100 min-h-screen ">
+      <h2 className="text-2xl font-bold mb-10 ">Billing System</h2>
+      
+      <div className="mb-4 flex items-center space-x-4">
+        <label className="font-semibold">Select Date:</label>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          className="p-2 border rounded shadow-sm focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={fetchOrders}
+          className="border bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+        >
+          Fetch Bills
+        </button>
+      </div>
 
-      {/* Date Selector */}
-      <label><strong>Select Date:</strong></label>
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={(e) => setSelectedDate(e.target.value)}
-        style={{ marginLeft: "10px", padding: "5px" }}
-      />
-      <button onClick={fetchOrders} style={{ marginLeft: "10px" }}>Fetch Bills</button>
+     {/* Edit Prices Modal */}
+      <button
+        onClick={() => setModalOpen(true)}
+        className="border ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+      >
+        Edit Prices
+      </button>
 
-            {/* Edit Prices Modal */}
-            <button onClick={() => setModalOpen(true)} style={{ marginLeft: "10px" }}>Edit Prices</button>
-      <Modal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
-        <h2>Edit Prices</h2>
+      <Modal
+        isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        className="bg-white p-10 rounded-lg shadow-lg max-w-md mx-auto mt-20 max-h-[80vh] overflow-y-auto"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      >
+        <h2 className="text-xxl font-bold mb-4 text-center">Edit Prices</h2>
+
         {Object.keys(fruits).length > 0 ? (
-          <>
+          <div className="space-y-4">
             {Object.entries(fruits).map(([id, fruit]) => (
-              <div key={id}>
-                <label>{fruit.name}: </label>
+              <div key={id} className="flex flex-col space-y-2">
+                <label className="text-lg font-semibold">{fruit.name}:</label>
+                <div>
+                <span className="p-3">Kg</span>  
                 <input
                   type="number"
                   value={localPrices[id]?.priceKg || ""}
                   onChange={(e) => handleChange(id, "priceKg", Number(e.target.value))}
                   placeholder="Price per Kg"
-                />
+                  className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
+                  />
+                  </div>
+                  <div>
+                  <span className="p-3">Pc</span>
                 <input
                   type="number"
                   value={localPrices[id]?.pricePiece || ""}
                   onChange={(e) => handleChange(id, "pricePiece", Number(e.target.value))}
                   placeholder="Price per Pc"
-                />
+                  className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
+                  />
+                  </div>
               </div>
             ))}
-            <button onClick={handleSave}>Save</button>
-          </>
+
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={handleSave}
+                className="border px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="border px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         ) : (
-          <p>Loading fruits...</p>
+          <p className="text-center text-gray-500">Loading fruits...</p>
         )}
-        <button onClick={() => setModalOpen(false)}>Close</button>
       </Modal>
+      {loading && <p className="text-center text-gray-600">Loading orders...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
+
 
       {/* Billing Cards */}
       <h2>Shop-wise Bills</h2>
@@ -302,11 +322,14 @@ const Billing = () => {
       </div>
 
       {/* Generate PDF Button */}
-      {orders.length > 0 && (
-        <button onClick={generatePDF} style={{ marginTop: "20px", padding: "10px 20px", backgroundColor: "green", color: "white", border: "none", cursor: "pointer" }}>
-          Generate Bill (PDF)
-        </button>
-      )}
+      <div className="py-8  ml-2">
+        {orders.length > 0 && (
+          <button className=" border bg-green-700 text-white px-5 py-2 rounded hover:bg-green-900 transition"
+          onClick={generatePDF}>
+            Generate Bill (PDF)
+          </button>
+        )}
+      </div>
     </div>
   );
 };
