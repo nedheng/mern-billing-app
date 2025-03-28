@@ -28,16 +28,16 @@ function App() {
           <div className=" min-h-screen bg-gray-100 ">
             {/* Navbar */}
             <div className="w-screen">
-            <nav className="w-full bg-gray-800 p-4 px-10 shadow-md flex items-center justify-start ">
+            <nav className="w-full bg-[#4ECDC4]  p-4 px-10 shadow-md flex items-center justify-start ">
               {/* Sidebar Toggle Button Inside Navbar */}
               <button
-                className="border bg-gray-800 text-white p-2 rounded shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                className="border bg-[#4ECDC4] text-gray-900 p-2 rounded shadow-md hover:bg-teal-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
                 onClick={toggleSidebar}
               >
                 ☰
               </button>
 
-              <ul className="flex space-x-6 text-white font-semibold">
+              <ul className="flex space-x-6 text-[#333333] font-semibold">
                 {[
                   { name: "Home", path: "/" },
                   { name: "Orders", path: "/orders" },
@@ -47,7 +47,7 @@ function App() {
                   <li key={item.name}>
                     <Link
                       to={item.path}
-                      className="hover:bg-gray-600 px-4 py-2 rounded transition duration-200 text-white"
+                      className="hover:bg-teal-300 px-4 py-2 rounded transition duration-200 text-[#333333]"
                     >
                       {item.name}
                     </Link>

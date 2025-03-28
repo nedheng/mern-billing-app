@@ -14,7 +14,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white p-4 transition-transform duration-300 z-50 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-[#FFE66D] text-[#333333] p-4 transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -23,7 +23,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <li>
             <Link
               to="/shops"
-              className="block p-2 hover:bg-gray-600 px-4 py-2 rounded transition duration-200 text-white"
+              className="block p-2 hover:bg-yellow-400 px-4 py-2 rounded transition duration-200 text-[#333333]"
               onClick={toggleSidebar}
             >
               Shops
@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <li>
             <Link
               to="/add-shops"
-              className="block p-2 hover:bg-gray-600 px-4 py-2 rounded transition duration-200 text-white"
+              className="block p-2 hover:bg-yellow-400 px-4 py-2 rounded transition duration-200 text-[#333333]"
               onClick={toggleSidebar}
             >
               Add Shops
@@ -41,7 +41,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <li>
             <Link
               to="/fruits"
-              className="block p-2 hover:bg-gray-600 px-4 py-2 rounded transition duration-200 text-white"
+              className="block p-2 hover:bg-yellow-400 px-4 py-2 rounded transition duration-200 text-[#333333]"
               onClick={toggleSidebar}
             >
               Fruits
@@ -50,7 +50,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <li>
             <Link
               to="/add-fruit"
-              className="block p-2 hover:bg-gray-600 px-4 py-2 rounded transition duration-200 text-white"
+              className="block p-2 hover:bg-yellow-400 px-4 py-2 rounded transition duration-200 text-[#333333]"
               onClick={toggleSidebar}
             >
               Add Fruit

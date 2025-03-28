@@ -62,7 +62,7 @@ const AddOrderForm = ({ refreshOrders }) => {
       refreshOrders();
     } catch (error) {
       console.error("Error adding order:", error);
-      toast.error("Failed to add order");
+      
     }
   };
 
